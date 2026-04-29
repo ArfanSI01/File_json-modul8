@@ -1,0 +1,332 @@
+{
+  "name": "Modul8 _Tugas 4_Pertemuan 4_ SOP AI Agent_Arfan Khoeri",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6ff12ccd-0c62-4a7d-96db-a407d90a3454",
+      "name": "Telegram Trigger",
+      "webhookId": "28e92c91-e9b5-4eac-8ced-f00a2190cbf3",
+      "credentials": {
+        "telegramApi": {
+          "id": "v38guK5huOk3UnGd",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a3fb815d-8a8e-4440-ad30-eeb7303aa75f",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Bagaimana prosedur reimbursement",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "45a1de88-ff48-488e-aa63-217eddee1bb2",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Prosedur pengajuan cuti tahunan",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c6453764-2ddd-4f8e-9346-8f50d42ee271",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Bagaimana aturan lembur di perusahaan?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6ea31a3e-165f-4710-bb04-8f794fc99149",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Apa syarat klaim asuransi kesehatan?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "d684f58e-091d-44ab-888c-2269b342bcf1",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Bagaimana prosedur permintaan alat kerja baru?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "9415a49b-1ba2-4eb8-82e8-e512db07abea",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "1. Bagaimana prosedur reimbursement?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "3b5a3a3f-04e9-44df-9ed6-3897f46a2b13",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "2. Prosedur pengajuan cuti tahunan",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "d7032e54-dfd8-4eb7-8f9a-875ad38de065",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "3. Bagaimana aturan lembur di perusahaan?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "2a44f9b3-cc5f-4a2b-937a-02d355408ebf",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "4. Apa syarat klaim asuransi kesehatan?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "02f60d27-de9d-4ea5-89af-d8970274b826",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "5. Bagaimana prosedur permintaan alat kerja baru?",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        192,
+        0
+      ],
+      "id": "ac972d46-fb40-48bf-9f78-8970e30e4283",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Anda adalah SOP AI Agent.\n\nATURAN KERAS:\n\n1. Anda WAJIB menggunakan TOOL \"Data Pertanyaan\" sebelum menjawab.\n\n2. Jawaban HARUS diambil dari hasil tool.\n\n3. DILARANG menggunakan pengetahuan umum.\n\n4. Jika data tidak ditemukan, jawab: \"Maaf, informasi tersebut tidak tersedia di SOP.\"\n\nPertanyaan pengguna:\n{{ $node[\"Telegram Trigger\"].json.message.text }}\n\nJawaban berdasarkan SOP:",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        400,
+        -96
+      ],
+      "id": "85a901f2-fc0c-40c2-a98c-4101495c2ab9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1dsPV6EK3gIDwTMksJkTYeIuJqvgkvlXVcBbSBPQyh9I",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        656,
+        160
+      ],
+      "id": "354ab15d-63eb-42e8-a4aa-2d4c58e1aad4",
+      "name": "Data Pertanyaan",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GLcblT1NlEdQVQyA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=8085407373",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        -96
+      ],
+      "id": "d0d4a0dd-3f04-49af-8f71-fc0ab575c194",
+      "name": "Send a text message1",
+      "webhookId": "24b202d1-09b2-4c57-b382-b8e8ac122f56",
+      "credentials": {
+        "telegramApi": {
+          "id": "v38guK5huOk3UnGd",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=8085407373",
+        "text": "=Pertanyaan yang Anda kirimkan tidak sesuai, harap gunakan pertanyaan dibawah ini:\n\n1. Bagaimana prosedur reimbursement?\n2. Prosedur pengajuan cuti tahunan\n3. Bagaimana aturan lembur di perusahaan?\n4. Apa syarat klaim asuransi kesehatan?\n5. Bagaimana prosedur permintaan alat kerja baru?",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        128
+      ],
+      "id": "db6d18ad-de5d-4690-9857-39c84564ee90",
+      "name": "False Output",
+      "webhookId": "24b202d1-09b2-4c57-b382-b8e8ac122f56",
+      "credentials": {
+        "telegramApi": {
+          "id": "v38guK5huOk3UnGd",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        400,
+        -240
+      ],
+      "id": "02e7a029-dbe2-48c9-af5b-54d2e73d57dd",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "8Bpzb0zXgYwnzgVd",
+          "name": "OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "False Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Pertanyaan": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "fbfd15be-6d0a-4fcb-aaf9-e1532e2b9901",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4ab2e820f183119a1cff325c1627456cb8157705ca3c559ce30aafaab9ef8286"
+  },
+  "id": "wpY6zBchYkEVKYC2",
+  "tags": []
+}
